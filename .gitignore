@@ -1,0 +1,24 @@
+#specific
+.project
+.class
+.classpath
+target/*
+Reports/*
+*.log
+**/roughwork/*
+.metadata/*
+RemoteSystemsTempFiles/*
+
+# Compiled Source #
+.class
+.so
+.o
+
+.settings
+
+
+test-output/*
+
+test-output
+/target/
+
