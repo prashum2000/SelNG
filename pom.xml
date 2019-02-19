@@ -7,70 +7,32 @@
   <version>1.0-SNAPSHOT</version>
   <name>TestProject</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.7.1</version>
-            <scope>test</scope>
-        </dependency>
- 
-        <dependency>
-   		   <groupId>org.testng</groupId>
-    	   <artifactId>testng</artifactId>
-           <version>6.14.3</version>
-    	   <scope>test</scope>
-		</dependency>
-		<dependency>
-       	   <groupId>com.googlecode.json-simple</groupId>
-           <artifactId>json-simple</artifactId>
-           <version>1.1.1</version>
-    	</dependency>
-    		<dependency>
-		<groupId>com.google.guava</groupId>
-		<artifactId>guava</artifactId>
-		<version>23.3-jre</version>
-	</dependency>
-	 <dependency>
-  		 <groupId>org.uncommons</groupId>
-   		 <artifactId>reportng</artifactId>
-  		 <version>1.1.4</version>
-   </dependency>
-   <dependency>
-		<groupId>com.google.collections</groupId>
-		<artifactId>google-collections</artifactId>
-		<version>1.0</version>
-	</dependency>
-	<dependency>
-  	    <groupId>com.google.inject</groupId>
-   		<artifactId>guice</artifactId>
-   		<version>3.0</version>
-  		 <scope>test</scope>
-   </dependency>
-
-    </dependencies>
-    
-    <build>
+  <build>
         <plugins>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin> -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
 				<configuration>
-					 <properties>
+					<!-- release>10</release> --> <!--<release>10</release>-->
+                    <!-- <properties>
                         <property>
                             <name>usedefaultlisteners</name>
                             <value>false</value>
-                        </property>                         
-                    </properties>                   
+                        </property>
+                        <property>
+                            <name>listener</name>
+                       		<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
+                        </property>
+                    </properties>  -->                  
                     <suiteXmlFiles>
                      <!--   <suiteXmlFile>src/main/resources/TestNg_Jurisdiction_Compliance.xml</suiteXmlFile> -->
                         <suiteXmlFile>src/main/resources/${testngFile}</suiteXmlFile>                                             
@@ -79,17 +41,31 @@
             </plugin>
         </plugins>
     </build>
+ 
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.7.1</version>            
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.9.9</version>
+        </dependency>
+    </dependencies>
     
     <profiles>		
 		<profile>
 			<id>qa</id>
 			<properties>
-				<resultType>Test</resultType>
+				<resultType>Report</resultType>
 				<testngFile>TestNG.xml</testngFile>
 			</properties>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-		</profile> 				
-	</profiles> 
+		</profile>
+	</profiles>
 </project>
