@@ -4,13 +4,19 @@
     <test name="com.FirstTest" parallel="methods" thread-count="5">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.tests.FirstTest"/>                 
+            <class name="com.tests.LoginTest"/>                 
         </classes>
     </test> <!-- First Test -->
     <test name="com.SecondTest"  parallel="methods" thread-count="4">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.tests.SecondTest"/>                
+            <class name="com.tests.LoginTest"/>                
+        </classes>
+    </test> <!-- Second Test -->
+    <test name="com.ThirdTest"  parallel="methods" thread-count="4">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.tests.LoginTest"/>                
         </classes>
     </test> <!-- Second Test -->
 </suite> <!-- Suite -->

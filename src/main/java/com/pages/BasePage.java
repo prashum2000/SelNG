@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+
 public class BasePage {
 	
 	public WebDriver driver;
@@ -25,7 +26,7 @@ public class BasePage {
 	 * @param by
 	 */
 	public void click (By by){
-		waitForInvisibilityOfElementLocatedBy(by);
+		waitForVisibilityOfElementLocatedBy(by);
 		driver.findElement(by).click();
 	}
 	
