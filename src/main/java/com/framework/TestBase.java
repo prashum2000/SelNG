@@ -3,6 +3,9 @@ package com.framework;
 import java.net.MalformedURLException;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,26 +13,55 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 
+
 public class TestBase {
 	
 	protected WebDriverWait wait;
 	protected String testURL;
-	protected WebDriver driver;
-		
+	protected String browser;
+	private ThreadLocal<RemoteWebDriver> driver;
+				
 	@BeforeMethod
-    @Parameters(value={"browser","baseURL"})
-    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL) throws MalformedURLException {
+    @Parameters(value={"browser","baseURL","host"})
+    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host) throws MalformedURLException {
        
-		TLDriverFactory.setDriver(browser);
-        wait = new WebDriverWait(TLDriverFactory.getTLDriver(), 15);
+		setDriver(browser,host);
+       // wait = new WebDriverWait(getTLDriver(), 15);
         testURL = baseURL;
-        driver = TLDriverFactory.getTLDriver();
+        this.browser = browser;        
         
     }
  
     @AfterMethod
     public synchronized void tearDown() throws Exception {         
-    	TLDriverFactory.getTLDriver().quit();
+    	
+    	if (getTLDriver() !=null){
+    		getTLDriver().quit();
+		}  	
+    }     
+    	
+	
+	@SuppressWarnings("deprecation")
+	public synchronized <S> void setDriver(String browser,String host){
+		
+		if (host.equals("localHost")){
+			
+			if (browser.equals("chrome")) {           
+		           
+				driver = ThreadLocal.withInitial(() -> new ChromeDriver(OptionsManager.getChromeOptions()));
+	        }
+			
+			if (browser.equals("firefox")){
+				
+				driver = ThreadLocal.withInitial(() -> new FirefoxDriver(OptionsManager.getFirefoxOptions()));
+			}
+		}
+		
+		 
+	}
+	
+	public synchronized WebDriver getTLDriver () {
+        return driver.get();
     }
 
 }

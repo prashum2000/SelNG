@@ -13,7 +13,7 @@ public class LoginTest extends TestBase {
 		
 		try {
 			
-			HomePage homePage = new HomePage(driver);
+			HomePage homePage = new HomePage(getTLDriver());
 			homePage.goToHomePage(testURL);
 			LoginPage loginPage = homePage.goToLoginPage();
 			loginPage.loginToApplication("asdfdsfdsf", "sdfdsfad");
@@ -29,9 +29,9 @@ public class LoginTest extends TestBase {
 	@Test
 	public void invalidLoginTest_EmptyUserNameEmptyPassword(){
 		
-		try {
-			
-			HomePage homePage = new HomePage(driver);
+		try { 
+								
+			HomePage homePage = new HomePage(getTLDriver());
 			homePage.goToHomePage(testURL);
 			LoginPage loginPage = homePage.goToLoginPage();
 			loginPage.loginToApplication("", "");

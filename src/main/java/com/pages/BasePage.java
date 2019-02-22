@@ -110,6 +110,20 @@ public class BasePage {
 			Assert.fail("Timed out waiting for element to be clickable==> "+by);
 		}
 	}
-
-
+	
+	/**
+	 * Returns true if element present
+	 * Returns false if element not present
+	 * @param by
+	 * @return
+	 */
+	public boolean isElementPresent(By by){
+		try { 			
+			driver.findElement(by);
+			return true; 			
+		} catch (NoSuchElementException NSE){
+			System.out.println(NSE);
+			return false;
+		}
+	} 
 }
