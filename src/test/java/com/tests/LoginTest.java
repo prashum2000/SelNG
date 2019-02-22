@@ -1,10 +1,12 @@
 package com.tests;
 
+
 import org.testng.annotations.Test;
 
 import com.framework.TestBase;
 import com.pages.HomePage;
 import com.pages.LoginPage;
+import com.utils.Log;
 
 public class LoginTest extends TestBase {
 	
@@ -13,6 +15,8 @@ public class LoginTest extends TestBase {
 		
 		try {
 			
+			String nameofCurrMethod = new Throwable().getStackTrace()[0].getMethodName();
+			Log.info("Starting test: "+ nameofCurrMethod);
 			HomePage homePage = new HomePage(getTLDriver());
 			homePage.goToHomePage(testURL);
 			LoginPage loginPage = homePage.goToLoginPage();
@@ -21,7 +25,8 @@ public class LoginTest extends TestBase {
 			loginPage.verifyLoginPassword("sdfasdfsd");
 			
 		} catch (Exception e){
-			e.printStackTrace();
+			
+			assertFailForRunTimeException(e);
 		} 	
 		
 	}
@@ -30,16 +35,20 @@ public class LoginTest extends TestBase {
 	public void invalidLoginTest_EmptyUserNameEmptyPassword(){
 		
 		try { 
-								
+			
+			String nameofCurrMethod = new Throwable().getStackTrace()[0].getMethodName();
+			Log.info("Starting test: "+ nameofCurrMethod);			
 			HomePage homePage = new HomePage(getTLDriver());
 			homePage.goToHomePage(testURL);
 			LoginPage loginPage = homePage.goToLoginPage();
 			loginPage.loginToApplication("", "");
 			loginPage.verifyLoginUserName("sdfadfsd");
-			loginPage.verifyLoginPassword("sdfasdfsd");
+			loginPage.verifyLoginPassword("sdfasdfsd");  			
 			
 		} catch (Exception e){
-			e.printStackTrace();
+			
+			assertFailForRunTimeException(e);
+			
 		} 	
 		
 	}

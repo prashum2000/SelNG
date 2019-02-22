@@ -2,23 +2,26 @@ package com.pages;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import com.utils.Log;
 
 
 public class BasePage {
 	
 	public WebDriver driver;
-	public WebDriverWait webDriverWait;
+	
 	
 	public BasePage (WebDriver driver){
-		this.driver = driver;
-		webDriverWait = new WebDriverWait(driver, 15);
+		this.driver = driver; 		
+		
 	}
 	
 	/**
@@ -43,8 +46,9 @@ public class BasePage {
 	 */
 	public void writeText(By by, String texToWrite){
 		waitForVisibilityOfElementLocatedBy(by);
-		driver.findElement(by).clear();
-		driver.findElement(by).sendKeys(texToWrite);
+		WebElement element = findElement(by);
+		element.clear();
+		element.sendKeys(texToWrite);
 	}
 	
 	/**
@@ -64,7 +68,7 @@ public class BasePage {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(by));	
 
 		} catch (Exception e){
-			e.printStackTrace();
+			Log.info("Exception occurred: " +ExceptionUtils.getStackTrace(e));
 			Assert.fail("Timed out waiting for element==> "+by);
 		}
 	}
@@ -122,8 +126,26 @@ public class BasePage {
 			driver.findElement(by);
 			return true; 			
 		} catch (NoSuchElementException NSE){
-			System.out.println(NSE);
+			Log.info("No such element ==>"+ExceptionUtils.getStackTrace(NSE));
 			return false;
 		}
-	} 
+	}
+	
+	/**
+	 * Finds and returns an element
+	 * Returns null if not found
+	 * @param by
+	 * @return
+	 */
+	public WebElement findElement (By by){
+		
+		if (isElementPresent(by)){
+			
+			return driver.findElement(by);
+			
+		} else {
+			
+			return null;
+		}
+	}
 }
