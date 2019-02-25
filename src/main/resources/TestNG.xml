@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Suite" parallel="tests" >
+
+	<!-- <listeners>
+         <listener class-name="com.framework.Listeners.Listener" />
+        <listener class-name="com.framework.Listeners.AnnotationTransformer"/>
+    </listeners> -->
     <test name="com.FirstTest" parallel="methods" thread-count="5">
         <parameter name="browser" value="chrome"/>
         <classes>
@@ -19,4 +24,5 @@
             <class name="com.tests.LoginTest"/>                
         </classes>
     </test> <!-- Second Test -->
+       
 </suite> <!-- Suite -->

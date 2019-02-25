@@ -1,14 +1,20 @@
 package com.framework;
 
+import java.io.File;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -23,12 +29,13 @@ public class TestBase {
 	protected WebDriverWait wait;
 	protected String testURL;
 	protected String browser;
-	private ThreadLocal<RemoteWebDriver> driver;
+	protected ThreadLocal<RemoteWebDriver> driver;
 						
 	@BeforeMethod
     @Parameters(value={"browser","baseURL","host"})
-    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host) throws MalformedURLException {
-		Log.startLog();
+    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host, Method method) throws MalformedURLException {
+		
+		Log.startLog(method.getName());
 		setDriver(browser,host);
         wait = new WebDriverWait(getTLDriver(), 15);
         testURL = baseURL;
@@ -37,10 +44,26 @@ public class TestBase {
     }
  
     @AfterMethod
-    public synchronized void tearDown() throws Exception {         
-    	Log.endLog();
+    public synchronized void tearDown(ITestResult testResult) throws Exception {         
+    	String methodName	=	testResult.getName().toString().trim();
+    	Log.endLog(methodName);
+    	String path;
+    	
+    	try {
+    		
+    		if (testResult.getStatus() == ITestResult.FAILURE){
+    			Log.info("Test Status => "+testResult.getStatus());
+    			File scrFile = ((TakesScreenshot)getTLDriver()).getScreenshotAs(OutputType.FILE);
+    			path = "./target/screenshots/" +methodName+scrFile.getName();
+    			FileUtils.copyFile(scrFile, new File(path));
+    		} 		
+    		
+    	} catch (Exception e){
+    		Log.info(ExceptionUtils.getStackTrace(e));
+    	}
+		
     	if (getTLDriver() !=null){
-    		getTLDriver().quit();
+    		getTLDriver().close();     		     		
 		}  	
     }     
     	

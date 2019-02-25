@@ -8,13 +8,13 @@ public class Log {
     private static Logger Log = Logger.getLogger(Log.class.getName());
  
     //We can use it when starting tests
-    public static void startLog (){
-        Log.info("Test is Starting...");
+    public static void startLog (String methodName){
+        Log.info("Starting test ==> "+ methodName);
     }
  
     //We can use it when ending tests
-    public static void endLog (){
-        Log.info("Test is Ending...");
+    public static void endLog (String methodName){
+        Log.info("Ending test ==> "+ methodName);
     }
  
     //Info Level Logs
