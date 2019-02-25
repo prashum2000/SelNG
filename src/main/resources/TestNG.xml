@@ -6,23 +6,29 @@
          <listener class-name="com.framework.Listeners.Listener" />
         <listener class-name="com.framework.Listeners.AnnotationTransformer"/>
     </listeners> -->
-    <test name="com.FirstTest" parallel="methods" thread-count="5">
+    <test name="com.FirstTest.Chrome" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.tests.LoginTest"/>                 
         </classes>
-    </test> <!-- First Test -->
-    <test name="com.SecondTest"  parallel="methods" thread-count="4">
+    </test> 
+    <test name="com.SecondTest.Firefox"  parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.tests.LoginTest"/>                
         </classes>
-    </test> <!-- Second Test -->
-    <test name="com.ThirdTest"  parallel="methods" thread-count="4">
+    </test>
+    <!-- <test name="com.ThirdTest.Chrome"  parallel="methods" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.tests.LoginTest"/>                
         </classes>
-    </test> <!-- Second Test -->
+    </test> 
+     <test name="com.FourthTest.Firefox"  parallel="methods" thread-count="2">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.tests.LoginTest"/>                
+        </classes>
+    </test> -->
        
 </suite> <!-- Suite -->

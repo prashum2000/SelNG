@@ -8,13 +8,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -31,7 +31,7 @@ public class TestBase {
 	protected String browser;
 	protected ThreadLocal<RemoteWebDriver> driver;
 						
-	@BeforeMethod
+	@BeforeMethod (alwaysRun = true)
     @Parameters(value={"browser","baseURL","host"})
     public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host, Method method) throws MalformedURLException {
 		
@@ -43,16 +43,16 @@ public class TestBase {
         
     }
  
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public synchronized void tearDown(ITestResult testResult) throws Exception {         
     	String methodName	=	testResult.getName().toString().trim();
     	Log.endLog(methodName);
     	String path;
-    	
+    	Log.info("Test status: "+ testResultStatus(testResult.getStatus())+" ,"+methodName);
     	try {
     		
     		if (testResult.getStatus() == ITestResult.FAILURE){
-    			Log.info("Test Status => "+testResult.getStatus());
+    			Log.info("Taking a screenshot as the test failed");
     			File scrFile = ((TakesScreenshot)getTLDriver()).getScreenshotAs(OutputType.FILE);
     			path = "./target/screenshots/" +methodName+scrFile.getName();
     			FileUtils.copyFile(scrFile, new File(path));
@@ -63,9 +63,16 @@ public class TestBase {
     	}
 		
     	if (getTLDriver() !=null){
-    		getTLDriver().close();     		     		
+    		getTLDriver().quit();     		     		
 		}  	
-    }     
+    }
+    
+    @AfterClass (alwaysRun = true)
+    public void terminate(){
+    	getTLDriver().quit();
+    	driver.remove();
+    }
+    
     	
 	
 	@SuppressWarnings("deprecation")
@@ -87,12 +94,38 @@ public class TestBase {
 		 
 	}
 	
-	public synchronized WebDriver getTLDriver () {
+	public synchronized RemoteWebDriver getTLDriver () {
         return driver.get();
     }
 	
 	public void assertFailForRunTimeException(Exception e){
 		Assert.fail("Run time Exceptin occured ==> "+ExceptionUtils.getStackTrace(e));
+	}
+	
+	private String testResultStatus(int status) 
+	{
+		String result = "";
+		switch (status) 
+		{
+		case ITestResult.SUCCESS :
+			result = "PASS";
+			break;
+			
+		case ITestResult.SUCCESS_PERCENTAGE_FAILURE:	
+		case ITestResult.FAILURE :
+			result = "FAIL";
+			break;
+			
+		case ITestResult.SKIP :
+			result = "SKIPPED";
+			break;
+			
+		default:
+			Log.info("Invalid result state : " + status );
+			result = "INVALID RESULT STATE";
+			break;
+		}
+		return result;
 	}
 
 }
