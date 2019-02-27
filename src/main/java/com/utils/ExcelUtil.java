@@ -12,14 +12,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 	
-	private String fileName;
-	private String sheetName;
-	private FileOutputStream fileOut = null;
-	private XSSFWorkbook workbook = null;
-	private XSSFSheet sheet;
-	private XSSFRow row = null;
-	private XSSFCell cell = null;
-	private InputStream	fis = null;
+	public String fileName;
+	public String sheetName;
+	public FileOutputStream fileOut = null;
+	public XSSFWorkbook workbook = null;
+	public XSSFSheet sheet;
+	public XSSFRow row = null;
+	public XSSFCell cell = null;
+	public InputStream	fis = null;
 	
 	public ExcelUtil (String fileToReadFrom, String SheetToReadFrom){
 		
