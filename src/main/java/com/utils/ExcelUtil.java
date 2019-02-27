@@ -1,5 +1,7 @@
 package com.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
@@ -10,20 +12,22 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 	
-	public String fileName;
-	public String sheetName;
-	public FileOutputStream fileOut = null;
-	public XSSFWorkbook workbook = null;
-	public XSSFSheet sheet;
-	public XSSFRow row = null;
-	public XSSFCell cell = null;
+	private String fileName;
+	private String sheetName;
+	private FileOutputStream fileOut = null;
+	private XSSFWorkbook workbook = null;
+	private XSSFSheet sheet;
+	private XSSFRow row = null;
+	private XSSFCell cell = null;
+	private InputStream	fis = null;
 	
-	public ExcelUtil (String fileName, String sheetName){
+	public ExcelUtil (String fileToReadFrom, String SheetToReadFrom){
 		
-		this.sheetName = sheetName;
-		this.fileName = fileName;
+		this.sheetName = SheetToReadFrom;
+		this.fileName = fileToReadFrom;
+		
 		try	{
-			InputStream	fis=this.getClass().getResourceAsStream(fileName);				
+			this.fis = new FileInputStream(new File(fileName));				
 			this.workbook = new XSSFWorkbook(fis);
 			this.sheet = workbook.getSheet(sheetName);
 			fis.close();
@@ -32,17 +36,17 @@ public class ExcelUtil {
 		}
 	}
 	
-	public ExcelUtil (String fileName){
+	public ExcelUtil (String fileToReadFrom){
 		
-		this.fileName = fileName;
+		this.fileName = fileToReadFrom;
 		try{
-			InputStream	fis=this.getClass().getResourceAsStream(fileName);			
+			fis	= new FileInputStream(new File(fileName));			
 			this.workbook = new XSSFWorkbook(fis);
 			this.sheet = workbook.getSheetAt(0);
 			fis.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-	}
+	} 	
 
 }
