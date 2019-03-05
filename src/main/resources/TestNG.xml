@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Suite" parallel="tests" >
 
-	<!-- <listeners>
-         <listener class-name="com.framework.Listeners.Listener" />
-        <listener class-name="com.framework.Listeners.AnnotationTransformer"/>
-    </listeners> -->
+	 <listeners>
+         <listener class-name="com.framework.Listeners.TestListener" />
+         <!-- <listener class-name="com.framework.Listeners.AnnotationTransformer"/> -->
+    </listeners>
     <test name="com.FirstTest.Chrome" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
@@ -13,12 +13,12 @@
         </classes>
     </test> 
     <test name="com.SecondTest.Firefox"  parallel="classes" thread-count="2">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="com.tests.LoginTest"/>                
         </classes>
     </test>
-    <!-- <test name="com.ThirdTest.Chrome"  parallel="methods" thread-count="2">
+    <test name="com.ThirdTest.Chrome"  parallel="methods" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.tests.LoginTest"/>                
@@ -29,6 +29,6 @@
         <classes>
             <class name="com.tests.LoginTest"/>                
         </classes>
-    </test> -->
+    </test>
        
 </suite> <!-- Suite -->
