@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" name="Suite" parallel="tests" >
+
+	<!-- <listeners>
+         <listener class-name="com.framework.Listeners.Listener" />
+        <listener class-name="com.framework.Listeners.AnnotationTransformer"/>
+    </listeners> -->
+    <test name="com.FirstTest.Chrome" parallel="classes" thread-count="1">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="baseURL" value="http://18.216.69.160:94"/>
+        <classes>
+            <class name="com.tests.ABALoginTest"/>                 
+        </classes>
+    </test>    
+       
+</suite> <!-- Suite -->
