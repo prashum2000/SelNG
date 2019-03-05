@@ -33,7 +33,7 @@ public class TestBase {
 						
 	@BeforeMethod (alwaysRun = true)
     @Parameters(value={"browser","baseURL","host"})
-    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host, Method method) throws MalformedURLException {
+    public void setupTest (@Optional("chrome") String browser,@Optional(" http://18.216.69.160:94/") String baseURL, @Optional("localHost") String host, Method method) throws MalformedURLException {
 		
 		Log.startLog(method.getName());
 		setDriver(browser,host);
