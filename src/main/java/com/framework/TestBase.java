@@ -3,6 +3,7 @@ package com.framework;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -32,11 +33,11 @@ public class TestBase {
 	protected ThreadLocal<RemoteWebDriver> driver;
 						
 	@BeforeMethod (alwaysRun = true)
-    @Parameters(value={"browser","baseURL","host"})
-    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host, Method method) throws MalformedURLException {
+    @Parameters(value={"browser","baseURL","host","remoteURL"})
+    public void setupTest (@Optional("chrome") String browser,@Optional("https://www.n11.com") String baseURL, @Optional("localHost") String host,@Optional("http://10.0.6.31:4444/wd/hub") String remoteURL, Method method) throws MalformedURLException {
 		
 		Log.startLog(method.getName());
-		setDriver(browser,host);
+		setDriver(browser,host,remoteURL);
         wait = new WebDriverWait(getTLDriver(), 15);
         testURL = baseURL;
         this.browser = browser;        
@@ -76,7 +77,7 @@ public class TestBase {
     	
 	
 	@SuppressWarnings("deprecation")
-	public synchronized <S> void setDriver(String browser,String host){
+	public synchronized <S> void setDriver(String browser,String host,String remoteURL){
 		
 		if (host.equals("localHost")){
 			
@@ -88,6 +89,30 @@ public class TestBase {
 			if (browser.equals("firefox")){
 				
 				driver = ThreadLocal.withInitial(() -> new FirefoxDriver(OptionsManager.getFirefoxOptions()));
+			}
+		}
+		
+		if (host.equals("remoteHost")){
+			
+			driver = new ThreadLocal<RemoteWebDriver>();
+			
+			if (browser.equals("chrome")) {           
+		        
+				try {
+					
+					driver.set(new RemoteWebDriver(new URL(remoteURL),OptionsManager.getChromeOptions()));
+				} catch (MalformedURLException e) {
+					Log.info(ExceptionUtils.getStackTrace(e));
+				}
+	        }
+			
+			if (browser.equals("firefox")){
+				
+				try {
+					driver.set(new RemoteWebDriver(new URL(remoteURL),OptionsManager.getFirefoxOptions()));
+				} catch (MalformedURLException e) {
+					Log.info(ExceptionUtils.getStackTrace(e)); 					
+				}
 			}
 		}
 		

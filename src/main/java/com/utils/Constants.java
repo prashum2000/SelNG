@@ -4,6 +4,7 @@ public class Constants {
 	
 	//driver paths
 	public static final String DRIVER_PATH = System.getProperty("user.dir")+"\\src\\main\\resources\\drivers\\";
+	public static final String KNOWN_FAILURES = System.getProperty("user.dir")+"\\src\\main\\resources\\Known_Failures.xlsx";
 	
 
 }
