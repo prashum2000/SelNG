@@ -148,4 +148,26 @@ public class BasePage {
 			return null;
 		}
 	}
+	
+	/**
+	 * returns tittle of the present page
+	 * Returns null if not found
+	 * 
+	 * @return
+	 */
+	public String getTitle(){
+		
+		return driver.getTitle();
+	}
+	
+	/**
+	 * returns the current URL
+	 * @return
+	 */
+	public String getUrl() {
+		return driver.getCurrentUrl();
+				
+	}
+	
+	
 }
