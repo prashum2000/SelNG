@@ -6,11 +6,17 @@
          <listener class-name="com.framework.Listeners.Listener" />
         <listener class-name="com.framework.Listeners.AnnotationTransformer"/>
     </listeners> -->
-    <test name="com.FirstTest.Chrome" parallel="classes" thread-count="1">
+    <test name="com.ABA Basic Test.Chrome">
         <parameter name="browser" value="chrome"/>
         <parameter name="baseURL" value="http://18.216.69.160:94"/>
         <classes>
-            <class name="com.tests.ABALoginTest"/>                 
+            <class name="com.tests.ABALoginTest"/> 
+            <class name ="com.tests.ABAAdminTest"/> 
+            <class name ="com.tests.ABAStaffTest"/> 
+            <class name ="com.tests.ABASiteVisitTest"/>   
+            <class name ="com.tests.ABADeanTest"/>
+             <class name ="com.tests.ABAExecutiveTest"/>
+             <class name ="com.tests.ABAParalegalTest"/>
         </classes>
     </test>    
        

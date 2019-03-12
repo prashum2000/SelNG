@@ -16,9 +16,9 @@ public class ABALoginPage extends BasePage {
 	By locInputEmail = By.cssSelector("input.form-control#Username");
 	By locInputPassword = By.cssSelector("input.form-control#Password");
 	By locLoginButton = By.cssSelector("#loginButton");
-	By locErrorMessageUsername = By.cssSelector("span[data-valmsg-for='UserName']");
+	By locErrorMessageUsername = By.cssSelector("div.error.userError");
 	By locUserNameErrorHide = By.cssSelector(".form-group .userError");
-	By locErrorMessagePassword = By.cssSelector("span[data-valmsg-for='PasswordHash']");
+	By locErrorMessagePassword = By.cssSelector(" div.error.pwdError");
 	By locPasswordErrorHide = By.cssSelector(".form-group .pwdError");
 	By locErrorMessageLogin = By.cssSelector(".validation-summary-errors");
 	

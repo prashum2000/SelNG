@@ -4,9 +4,11 @@ package com.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import com.pages.ABAContactsPage;
 
 import com.bo.User;
 import com.utils.Log;
+
 
 
 public class ABAHomePage extends BasePage {
@@ -22,7 +24,7 @@ public class ABAHomePage extends BasePage {
 	By locSchoolButton = By.cssSelector("a.MenuItem[href=\"/School/Index\"]");
 	By locAdminButton = By.cssSelector("a.MenuItem[href=\"#Admin\"]");
 	By locSiteVisitButton = By.cssSelector("a.MenuItem[href=\"/SiteVisit/Index\"]");
-	//By locSurveyButton = By.cssSelector("a.MenuItem[href=\"/Contact/Index\"]");
+	By locSurveyButton = By.cssSelector("a.MenuItem[href=\"/Survey/Index\"]");
 	By locWelcometext = By.xpath("//*[@class=\"m-r-sm text-muted welcome-message\"]");
 	
 	/**
@@ -31,12 +33,14 @@ public class ABAHomePage extends BasePage {
 	 * @return
 	 */
 	
-	public ABAContacts accessContacts(){
+	public ABAContactsPage accessContacts(){
 		Assert.assertTrue(isContactLinkPresent(),"Contacts is not present for the logged user ");
 		click(locContactButton);
+		//ABAContacts abaContacts = new ABAContacts(driver);
+		//Assert.assertTrue(abaContacts.isContactListPresent(),"user is not on cotacts page ");
 		String title = getTitle();
 		Assert.assertEquals(title, "Contact List","Expected to navigate to Contacts page but navigated to :"+ title);
-		return new ABAContacts(driver);
+		return new ABAContactsPage(driver);
 	}
 	
 	/**
@@ -44,12 +48,13 @@ public class ABAHomePage extends BasePage {
 
 	 * @return
 	 */
-	public ABASchools accessSchool(){
+	public ABASchoolPage accessSchool(){
 		Assert.assertTrue(isSchoolLinkPresent(),"School is not present for the logged user ");
 		click(locSchoolButton);
 		String title = getTitle();
 		Assert.assertEquals(title, "School List","Expected to navigate to School List but navigated to :"+ title);
-		return new ABASchools(driver);
+		
+		return new ABASchoolPage(driver);
 	}
 	
 	/**
@@ -57,12 +62,25 @@ public class ABAHomePage extends BasePage {
 
 	 * @return
 	 */
-	public ABASiteVisit accessSiteVisit(){
+	public ABASiteVisitPage accessSiteVisit(){
 		Assert.assertTrue(isSiteVisitLinkPresent(),"Site Visit is not present for the logged user ");
 		click(locSiteVisitButton);
 		String title = getTitle();
 		Assert.assertEquals(title, "Site Vist List","Expected to navigate to Site Vist List page but navigated to :"+ title);
-		return new ABASiteVisit(driver);
+		return new ABASiteVisitPage(driver);
+	}
+	
+	/**
+	 * Tests for user access Survey link
+
+	 * @return
+	 */
+	public ABASurveyPage accessSurvey(){
+		Assert.assertTrue(isSurveyLinkPresent(),"Survey is not present for the logged user ");
+		click(locSurveyButton);
+		String title = getTitle();
+		Assert.assertEquals(title, "Survey List","Expected to navigate to Survey List page but navigated to :"+ title);
+		return new ABASurveyPage(driver);
 	}
 	
 	/**
@@ -84,6 +102,17 @@ public class ABAHomePage extends BasePage {
 	public boolean isContactLinkPresent() {
 	
 		return isElementPresent(locContactButton);
+		
+	}
+	
+	
+	/**
+	 * Tests for the presence of Survey link
+	 */
+	
+	public boolean isSurveyLinkPresent() {
+	
+		return isElementPresent(locSurveyButton);
 		
 	}
 	
