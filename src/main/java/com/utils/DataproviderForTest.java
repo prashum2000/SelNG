@@ -41,7 +41,7 @@ public class DataproviderForTest{
 				  abaCredential.cell =  abaCredential.row.getCell(j);
 				  
 				  if (abaCredential.cell.getColumnIndex()== 0) {
-					  user.userRole = abaCredential.cell.getStringCellValue();
+			  user.userRole = abaCredential.cell.getStringCellValue();
 				  }
 				  
 				  if (abaCredential.cell.getColumnIndex()== 1) {
@@ -71,8 +71,9 @@ public class DataproviderForTest{
 		
 		}
 		
+ 
 		 
-		return mapOfUsers.get(userRole); 	
+		return mapOfUsers.get(userRole);
 		
 	} 	
 	
@@ -181,4 +182,21 @@ public class DataproviderForTest{
 		
 		  return data;
 	  }
+
+	  /**
+			 * DataProvider for Council Credentials
+			 * @return
+			 * @throws Exception
+			 */
+		  
+		  @DataProvider(name="siteVisitMemberData")
+		  public static Object[][] siteVisitMemberData() throws Exception { 
+			  User user = readdata("Site visit member");
+			  Object[][] data = new Object[1][1];
+			  data[0][0] = user;
+			
+			  return data;
+		  }
+
 }
+
