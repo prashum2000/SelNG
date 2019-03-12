@@ -4,21 +4,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class ABAContactsPage extends BasePage{
+public class ABASurveyPage extends BasePage{
 
-	public ABAContactsPage(WebDriver driver) {
+	public ABASurveyPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	By locContactList = By.cssSelector("div.col-lg-6 h2[style =\"margin:8px 0px !important\"]");
+	By locSurveyResults = By.cssSelector("div.col-lg-6 h2[style =\"margin:8px 0px !important\"]");
 	
 	
 	
-	public void validateContactPage(String expectedText) {
+	public void validateSurveyPage(String expectedText) {
 		Assert.assertTrue(isContactListPresent(),"Problem landing on contacts page ");
-		String actualText = readText(locContactList);
+		String actualText = readText(locSurveyResults);
 		Assert.assertEquals(actualText, expectedText,"expected heading on contacts page : " + expectedText + "but page contains : " + actualText);
 	}
 	
@@ -29,7 +29,7 @@ public class ABAContactsPage extends BasePage{
 	
 	public boolean isContactListPresent() {
 	
-		return isElementPresent(locContactList);
+		return isElementPresent(locSurveyResults);
 		
 	}
 	
