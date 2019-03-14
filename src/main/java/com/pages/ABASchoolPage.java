@@ -15,15 +15,15 @@ By locSchoolList = By.cssSelector("div.col-lg-6 h2[style =\"margin:8px 0px !impo
 	
 	
 	
-	public void validateSchoolListPage(String expectedText) {
-		Assert.assertTrue(isSchoolListPresent(),"Problem landing on contacts page ");
+	public void validateSchoolListHeading(String expectedText) {
+		Assert.assertTrue(isSchoolListPresent(),"Problem landing on school page ");
 		String actualText = readText(locSchoolList);
-		Assert.assertEquals(actualText, expectedText,"expected heading on contacts page : " + expectedText + "but page contains : " + actualText);
+		Assert.assertEquals(actualText, expectedText,"expected heading on school page : " + expectedText + "but page contains : " + actualText);
 	}
 	
 	
 	/**
-	 * Tests for the presence of Contacts list heading
+	 * Tests for the presence of School list heading
 	 */
 	
 	public boolean isSchoolListPresent() {

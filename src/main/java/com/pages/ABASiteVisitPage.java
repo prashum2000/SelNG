@@ -15,12 +15,18 @@ public class ABASiteVisitPage extends BasePage {
 
 By locSiteVisitList = By.cssSelector("div.col-lg-6 h2[style =\"margin: 8px 0px !important;\"]");
 	
+
+/**
+ * validation of the site vist page 
+ * 
+ * 1. validate for the site visit heading
+ */
 	
-	
-	public void validateSiteVisitListPage(String expectedText) {
+	public void validateSiteVisitListHeading(String expectedText) {
+		
 		Assert.assertTrue(isSiteVisitListPresent(),"Problem landing on sitevist page ");
 		String actualText = readText(locSiteVisitList);
-		Assert.assertEquals(actualText, expectedText,"expected heading on contacts page : " + expectedText + "but page contains : " + actualText);
+		Assert.assertEquals(actualText, expectedText,"expected heading on Sitevisit page : " + expectedText + "but page contains : " + actualText);
 	}
 	
 	

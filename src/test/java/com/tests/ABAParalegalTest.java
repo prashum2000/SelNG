@@ -30,7 +30,7 @@ public class ABAParalegalTest extends TestBase {
 		ABAHomePage abaHome = abalogin.loginToABA(user.userName, user.passWord);
 		abaHome.verifyUserLoggedOnToApplication(user);
 		ABASiteVisitPage abaSiteVisit = abaHome.accessSiteVisit();
-		abaSiteVisit.validateSiteVisitListPage("Site Visit List");
+		abaSiteVisit.validateSiteVisitListHeading("Site Visit List");
 		}
 		catch (Exception e) {
 			assertFailForRunTimeException(e);

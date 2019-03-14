@@ -16,15 +16,15 @@ public class ABASurveyPage extends BasePage{
 	
 	
 	
-	public void validateSurveyPage(String expectedText) {
-		Assert.assertTrue(isContactListPresent(),"Problem landing on contacts page ");
+	public void validateSurveyHeading(String expectedText) {
+		Assert.assertTrue(isContactListPresent(),"Problem landing on Survey page ");
 		String actualText = readText(locSurveyResults);
-		Assert.assertEquals(actualText, expectedText,"expected heading on contacts page : " + expectedText + "but page contains : " + actualText);
+		Assert.assertEquals(actualText, expectedText,"expected heading on Survey page : " + expectedText + "but page contains : " + actualText);
 	}
 	
 	
 	/**
-	 * Tests for the presence of Contacts list heading
+	 * Tests for the presence of Survey list heading
 	 */
 	
 	public boolean isContactListPresent() {

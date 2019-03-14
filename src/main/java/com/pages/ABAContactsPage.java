@@ -16,7 +16,7 @@ public class ABAContactsPage extends BasePage{
 	
 	
 	
-	public void validateContactPage(String expectedText) {
+	public void validateContactHeading(String expectedText) {
 		Assert.assertTrue(isContactListPresent(),"Problem landing on contacts page ");
 		String actualText = readText(locContactList);
 		Assert.assertEquals(actualText, expectedText,"expected heading on contacts page : " + expectedText + "but page contains : " + actualText);

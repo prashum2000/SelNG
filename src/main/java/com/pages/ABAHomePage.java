@@ -23,6 +23,8 @@ public class ABAHomePage extends BasePage {
 	By locContactButton = By.cssSelector("a.MenuItem[href=\"/Contact/Index\"]");
 	By locSchoolButton = By.cssSelector("a.MenuItem[href=\"/School/Index\"]");
 	By locAdminButton = By.cssSelector("a.MenuItem[href=\"#Admin\"]");
+	By locRoleButton = By.cssSelector("li.submenuItem a[href=\"/Master/RoleIndex\"]");
+	By locOrganizationButton = By.cssSelector("li.submenuItem a[href=\"/Master/Index\"]");
 	By locSiteVisitButton = By.cssSelector("a.MenuItem[href=\"/SiteVisit/Index\"]");
 	By locSurveyButton = By.cssSelector("a.MenuItem[href=\"/Survey/Index\"]");
 	By locWelcometext = By.xpath("//*[@class=\"m-r-sm text-muted welcome-message\"]");
@@ -95,6 +97,52 @@ public class ABAHomePage extends BasePage {
 		Assert.assertEquals(title, "Index","");
 	}
 	
+	/**
+	 * Tests for user access Role link
+
+	 * @return
+	 */
+	
+	public ABAAdminRole accessRole(){
+		Assert.assertTrue(isAdminLinkPresent(),"Admin is not present for the logged user ");
+		click(locAdminButton);
+		Assert.assertTrue(isRoleLinkPresent(),"Role is not present for the logged user ");
+		click(locRoleButton);
+		String title = getTitle();
+		Assert.assertEquals(title, "Index","Expected to navigate to Role List page but navigated to  :"+ title);
+		return new ABAAdminRole(driver);
+	}
+/**
+	* Tests for user access Organization link
+
+	 * @return
+	 */
+	
+	public ABAOrganization accessOrganization(){
+		Assert.assertTrue(isAdminLinkPresent(),"Admin is not present for the logged user ");
+		click(locAdminButton);
+		Assert.assertTrue(isOrganizationLinkPresent(),"Organization is not present for the logged user ");
+		click(locOrganizationButton);
+		String title = getTitle();
+		Assert.assertEquals(title, "Index","Expected to navigate to Organization List page but navigated to  :"+ title);
+		return new ABAOrganization(driver);
+	}
+	
+	/**
+	 * Tests for the presence of organization link under Admin
+	 */
+	private boolean isOrganizationLinkPresent() {
+	
+		return isElementPresent(locOrganizationButton);
+	}
+
+	/**
+	 * Tests for the presence of Role link under Admin
+	 */
+	private boolean isRoleLinkPresent() {
+		
+		return isElementPresent(locRoleButton);
+	}
 	/**
 	 * Tests for the presence of Contacts link
 	 */
