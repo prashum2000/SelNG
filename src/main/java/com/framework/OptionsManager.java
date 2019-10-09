@@ -26,5 +26,13 @@ public class OptionsManager {
 		desiredCapabilities.setCapability("marionette", true);
 		return desiredCapabilities;
 	}
+	
+	public static DesiredCapabilities getAndroidOptions(){
+		
+		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+		desiredCapabilities.setCapability("platformName", "Android");
+		desiredCapabilities.setCapability("noReset","false");
+		return desiredCapabilities;
+	}
 
 }
